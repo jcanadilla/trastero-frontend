@@ -13,4 +13,12 @@ export class BackendService {
     return this.http.get(`${path}`);
   }
 
+  post(path, params): Observable<any> {
+    return this.http.post(`${path}`, params);
+  }
+
+  put(path, params): Observable<any> {
+    return this.http.put(`${path}`, params);
+  }
+
 }

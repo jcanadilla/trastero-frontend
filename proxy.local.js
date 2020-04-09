@@ -5,7 +5,7 @@
  */
 module.exports = {
   '/api': {
-    target: 'http://localhost:3000',
+    target: '192.168.1.200:3000',
     secure: false
   }
 };

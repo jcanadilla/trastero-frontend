@@ -64,7 +64,7 @@ export class CategoriasComponent implements OnInit {
     });
   }
 
-  refreshTable(){
+  refreshTable() {
     this.source.load(this.categorias);
   }
 
@@ -73,10 +73,9 @@ export class CategoriasComponent implements OnInit {
     // source: DataSource - table data source
     // confirm: Deferred - Deferred object with resolve() and reject() methods.
     if (window.confirm('Are you sure you want to delete?')) {
-      const categoria=event.data as Categoria;
+      const categoria = event.data as Categoria;
       this.categoriasService.deleteCategoria(categoria).subscribe((categoria: Categoria) => {
-        // this.categorias.(categoria);
-        this.refreshTable();
+        console.log("Deleted!", categoria)
       });
       event.confirm.resolve();
     } else {
@@ -88,10 +87,9 @@ export class CategoriasComponent implements OnInit {
     // newData: Object - data entered in a new row
     // source: DataSource - table data source
     // confirm: Deferred - Deferred object with resolve(newData: Object) and reject() methods.
-    const categoria=event.newData as Categoria;
+    const categoria = event.newData as Categoria;
     this.categoriasService.createCategoria(categoria).subscribe((categoria: Categoria) => {
-      this.categorias.push(categoria);
-      this.refreshTable();
+      console.log("Created!", categoria)
     });
   }
 
@@ -100,10 +98,9 @@ export class CategoriasComponent implements OnInit {
     // source: DataSource - table data source
     console.log(event.newData)
     console.log(event.source)
-    const categoria=event.newData as Categoria;
+    const categoria = event.newData as Categoria;
     this.categoriasService.editCategoria(categoria).subscribe((categoria: Categoria) => {
-      // this.categorias.push(categoria);
-      this.refreshTable();
+      console.log("Edited!", categoria)
     });
   }
 

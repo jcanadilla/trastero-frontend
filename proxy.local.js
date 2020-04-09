@@ -5,7 +5,9 @@
  */
 module.exports = {
   '/api': {
-    target: '192.168.1.200:3000',
-    secure: false
+    target: 'http://192.168.1.200:3000',
+    secure: false,
+    changeOrigin: true,
+    logLevel: "debug"
   }
 };

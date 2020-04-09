@@ -60,8 +60,12 @@ export class CategoriasComponent implements OnInit {
   ngOnInit(): void {
     this.categoriasService.getCategorias().subscribe((categorias: Categoria[]) => {
       this.categorias.push(...categorias);
-      this.source.load(this.categorias);
+      this.refreshTable();
     });
+  }
+
+  refreshTable(){
+    this.source.load(this.categorias);
   }
 
   onDeleteConfirm(event): void {
@@ -76,11 +80,11 @@ export class CategoriasComponent implements OnInit {
     // newData: Object - data entered in a new row
     // source: DataSource - table data source
     // confirm: Deferred - Deferred object with resolve(newData: Object) and reject() methods.
-    console.log(event.newData)
-    console.log(event.source)
-    console.log(event.confirm)
     const categoria=event.newData as Categoria;
-    this.categoriasService.createCategoria(categoria)
+    this.categoriasService.createCategoria(categoria).subscribe((categoria: Categoria) => {
+      this.categorias.push(categoria);
+      this.refreshTable();
+    });
   }
 
   onEditConfirm(event): void {

@@ -13,15 +13,18 @@ export class CategoriasComponent implements OnInit {
   categorias: Categoria[] = [];
 
   settings = {
+    mode: "inline",
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true,
     },
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
       saveButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -51,7 +54,7 @@ export class CategoriasComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private categoriasService: CategoriasService) {
-    
+
   }
 
   ngOnInit(): void {
@@ -67,6 +70,26 @@ export class CategoriasComponent implements OnInit {
     } else {
       event.confirm.reject();
     }
+  }
+
+  onCreateConfirm(event): void {
+    // newData: Object - data entered in a new row
+    // source: DataSource - table data source
+    // confirm: Deferred - Deferred object with resolve(newData: Object) and reject() methods.
+    console.log(event.newData)
+    console.log(event.source)
+    console.log(event.confirm)
+    const categoria=event.newData as Categoria;
+    this.categoriasService.createCategoria(categoria)
+  }
+
+  onEditConfirm(event): void {
+    // newData: Object - data entered in a new row
+    // source: DataSource - table data source
+    console.log(event.newData)
+    console.log(event.source)
+    const categoria=event.newData as Categoria;
+    this.categoriasService.editCategoria(categoria)
   }
 
 }

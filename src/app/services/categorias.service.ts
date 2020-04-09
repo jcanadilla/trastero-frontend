@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { BackendService } from '../services/backend.service';
 import { Categoria } from '../models/categoria.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +10,16 @@ export class CategoriasService {
 
   constructor(private backend: BackendService) { }
 
-  getCategorias(){
+  getCategorias() {
     return this.backend.get('/api/categorias')
+  }
+
+  createCategoria(categoria: Categoria) {
+    return this.backend.post('/api/categorias', categoria)
+  }
+
+  editCategoria(categoria: Categoria) {
+    return this.backend.put('/api/categorias', categoria)
   }
 
 }

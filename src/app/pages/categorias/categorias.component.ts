@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { CategoriasService } from '../../services/categorias.service';
+import { Categoria } from '../../models/categoria.model';
 
 @Component({
   selector: 'ngx-categorias',
@@ -8,6 +9,8 @@ import { CategoriasService } from '../../services/categorias.service';
   styleUrls: ['./categorias.component.scss'],
 })
 export class CategoriasComponent implements OnInit {
+
+  categorias: Categoria[] = [];
 
   settings = {
     add: {
@@ -48,12 +51,14 @@ export class CategoriasComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private categoriasService: CategoriasService) {
-    const data = this.categoriasService.getCategorias();
-    this.source.load(data);
+    
   }
 
   ngOnInit(): void {
-
+    this.categoriasService.getCategorias().subscribe((categorias: Categoria[]) => {
+      this.categorias.push(...categorias);
+      this.source.load(this.categorias);
+    });
   }
 
   onDeleteConfirm(event): void {

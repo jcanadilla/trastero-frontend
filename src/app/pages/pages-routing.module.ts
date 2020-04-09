@@ -14,8 +14,11 @@ const routes: Routes = [{
       component: HomeComponent,
     },
     {
+      path: 'categorias',
+      loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule)
+    },
+    {
       path: 'productos',
-      // component: ProductosComponent
       loadChildren: () => import('./productos/productos.module')
         .then(m => m.ProductosModule),
     },
@@ -87,7 +90,8 @@ const routes: Routes = [{
       component: NotFoundComponent,
     },
   ],
-}];
+},
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

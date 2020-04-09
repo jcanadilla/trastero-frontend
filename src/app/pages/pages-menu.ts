@@ -8,6 +8,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Categorías',
+    icon: 'shopping-cart',
+    link: '/pages/categorias',
+  },
+  {
     title: 'Productos',
     icon: 'shopping-cart',
     link: '/pages/productos',

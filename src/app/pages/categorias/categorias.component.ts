@@ -41,7 +41,7 @@ export class CategoriasComponent implements OnInit {
         title: 'Color',
         type: 'string',
       },
-      
+
     },
   };
 

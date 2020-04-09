@@ -4,7 +4,7 @@ import { BackendService } from '../services/backend.service';
 import { Categoria } from '../models/categoria.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoriasService {
 
@@ -14,7 +14,7 @@ export class CategoriasService {
 
   getCategorias() {
     this.backend.get('/api/categorias').subscribe((categorias: Categoria[]) => {
-      console.log(`Fetched ${categorias.length} categorias.`);
+      // console.log(`Fetched ${categorias.length} categorias.`);
       this.categorias.push(...categorias); // fill cache
     });
   }

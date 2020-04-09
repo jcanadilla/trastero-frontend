@@ -13,7 +13,7 @@ import { NbCardModule } from '@nebular/theme';
     CommonModule,
     CategoriasRoutingModule,
     Ng2SmartTableModule,
-    NbCardModule
+    NbCardModule,
   ],
 })
 export class CategoriasModule { }

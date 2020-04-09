@@ -54,6 +54,10 @@ export const routes: Routes = [
     path: 'productos', loadChildren: () =>
       import('./pages/productos/productos.module').then(m => m.ProductosModule),
   },
+  {
+    path: 'tiendas', loadChildren: () =>
+      import('./pages/tiendas/tiendas.module').then(m => m.TiendasModule),
+  },
   { path: '**', redirectTo: 'pages' },
 ];
 

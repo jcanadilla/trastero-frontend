@@ -22,6 +22,11 @@ const routes: Routes = [{
       loadChildren: () => import('./productos/productos.module')
         .then(m => m.ProductosModule),
     },
+    {
+      path: 'tiendas',
+      loadChildren: () => import('./tiendas/tiendas.module').then(m => m.TiendasModule),
+    },
+
     // {
     //   path: 'dashboard',
     //   component: ECommerceComponent,

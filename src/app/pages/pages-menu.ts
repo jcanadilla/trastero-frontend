@@ -17,6 +17,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'shopping-cart',
     link: '/pages/productos',
   },
+  {
+    title: 'Tiendas',
+    icon: 'shopping-cart',
+    link: '/pages/tiendas',
+  },
 
   // {
   //   title: 'Escaner',

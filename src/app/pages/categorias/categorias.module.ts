@@ -9,7 +9,7 @@ import { CategoriasComponent } from './categorias.component';
   declarations: [CategoriasComponent],
   imports: [
     CommonModule,
-    CategoriasRoutingModule
-  ]
+    CategoriasRoutingModule,
+  ],
 })
 export class CategoriasModule { }

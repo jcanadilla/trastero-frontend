@@ -46,8 +46,14 @@ export const routes: Routes = [
   //   ],
   // },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: 'categorias', loadChildren: () => import('./pages/categorias/categorias.module').then(m => m.CategoriasModule) },
-  { path: 'productos', loadChildren: () => import('./pages/productos/productos.module').then(m => m.ProductosModule) },
+  {
+    path: 'categorias', loadChildren: () =>
+      import('./pages/categorias/categorias.module').then(m => m.CategoriasModule),
+  },
+  {
+    path: 'productos', loadChildren: () =>
+      import('./pages/productos/productos.module').then(m => m.ProductosModule),
+  },
   { path: '**', redirectTo: 'pages' },
 ];
 

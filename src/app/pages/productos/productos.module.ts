@@ -9,7 +9,7 @@ import { ProductosComponent } from './productos.component';
   declarations: [ProductosComponent],
   imports: [
     CommonModule,
-    ProductosRoutingModule
-  ]
+    ProductosRoutingModule,
+  ],
 })
 export class ProductosModule { }

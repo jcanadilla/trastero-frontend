@@ -22,4 +22,8 @@ export class CategoriasService {
     return this.backend.put('/api/categorias', categoria)
   }
 
+  deleteCategoria(categoria: Categoria) {
+    return this.backend.delete(`/api/categorias/${categoria.id}`)
+  }
+
 }

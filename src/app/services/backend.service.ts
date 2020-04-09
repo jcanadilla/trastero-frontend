@@ -21,4 +21,8 @@ export class BackendService {
     return this.http.put(`${path}`, params);
   }
 
+  delete(path): Observable<any> {
+    return this.http.delete(`${path}`);
+  }
+
 }

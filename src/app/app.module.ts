@@ -21,6 +21,11 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 
+// services imports
+import { BackendService } from './services/backend.service';
+import { CategoriasService } from './services/categorias.service';
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -39,6 +44,10 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+  ],
+  providers: [
+    BackendService,
+    CategoriasService,
   ],
   bootstrap: [AppComponent],
 })

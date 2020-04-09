@@ -1,24 +1,17 @@
 import { Injectable, Type } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Categoria } from '../models/categoria.model';
+import { Observable } from 'rxjs';
 
-const CATEGORIAS = [
-  new Categoria('Lácteos', 'awdasd' ,'red'),
-  new Categoria('Pasta', 'awdasd' ,'yellow'),
-  new Categoria('Limpieza', 'awdasd' ,'blue')
-];
 
 @Injectable()
 export class BackendService {
-  constructor() { }
+  
+  constructor(private http: HttpClient) { }
 
-  getAll(type: Type<any>): PromiseLike<any[]> {
-    if (type === Categoria) {
-      // TODO: get from the database
-      return Promise.resolve<Categoria[]>(CATEGORIAS);
-    }
-    let err = new Error('Cannot get object of this type');
-    console.error(err);
-    throw err;
+  get(path):Observable<any>{
+    return this.http.get(`${path}`);
   }
+
 }

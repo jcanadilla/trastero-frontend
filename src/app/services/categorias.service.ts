@@ -13,11 +13,10 @@ export class CategoriasService {
   constructor(private backend: BackendService) { }
 
   getCategorias() {
-    this.backend.getAll(Categoria).then((categorias: Categoria[]) => {
+    this.backend.get('/api/categorias').subscribe((categorias: Categoria[]) => {
       console.log(`Fetched ${categorias.length} categorias.`);
       this.categorias.push(...categorias); // fill cache
     });
-    return this.categorias;
   }
 
 }

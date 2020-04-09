@@ -74,9 +74,14 @@ export class CategoriasComponent implements OnInit {
     // confirm: Deferred - Deferred object with resolve() and reject() methods.
     if (window.confirm('Are you sure you want to delete?')) {
       const categoria = event.data as Categoria;
-      this.categoriasService.deleteCategoria(categoria).subscribe((categoria: Categoria) => {
-        console.log("Deleted!", categoria)
-      });
+      this.categoriasService.deleteCategoria(categoria).subscribe(
+        (categoria: Categoria) => {
+          console.log("Deleted!", categoria)
+        },
+        (error) => {
+          event.confirm.reject();
+        }
+      );
       event.confirm.resolve();
     } else {
       event.confirm.reject();
@@ -88,9 +93,14 @@ export class CategoriasComponent implements OnInit {
     // source: DataSource - table data source
     // confirm: Deferred - Deferred object with resolve(newData: Object) and reject() methods.
     const categoria = event.newData as Categoria;
-    this.categoriasService.createCategoria(categoria).subscribe((categoria: Categoria) => {
-      console.log("Created!", categoria)
-    });
+    this.categoriasService.createCategoria(categoria).subscribe(
+      (categoria: Categoria) => {
+        console.log("Created!", categoria)
+      },
+      (error) => {
+        event.confirm.reject();
+      }
+    );
   }
 
   onEditConfirm(event): void {
@@ -99,9 +109,15 @@ export class CategoriasComponent implements OnInit {
     console.log(event.newData)
     console.log(event.source)
     const categoria = event.newData as Categoria;
-    this.categoriasService.editCategoria(categoria).subscribe((categoria: Categoria) => {
-      console.log("Edited!", categoria)
-    });
+    this.categoriasService.editCategoria(categoria).subscribe(
+      (categoria: Categoria) => {
+        console.log("Edited!", categoria)
+        event.confirm.resolve();
+      },
+      (error) => {
+        event.confirm.reject();
+      }
+    );
   }
 
 }

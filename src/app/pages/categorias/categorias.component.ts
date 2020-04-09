@@ -69,7 +69,15 @@ export class CategoriasComponent implements OnInit {
   }
 
   onDeleteConfirm(event): void {
+    // data: Object - data object to delete
+    // source: DataSource - table data source
+    // confirm: Deferred - Deferred object with resolve() and reject() methods.
     if (window.confirm('Are you sure you want to delete?')) {
+      const categoria=event.data as Categoria;
+      this.categoriasService.deleteCategoria(categoria).subscribe((categoria: Categoria) => {
+        // this.categorias.(categoria);
+        this.refreshTable();
+      });
       event.confirm.resolve();
     } else {
       event.confirm.reject();
@@ -93,7 +101,10 @@ export class CategoriasComponent implements OnInit {
     console.log(event.newData)
     console.log(event.source)
     const categoria=event.newData as Categoria;
-    this.categoriasService.editCategoria(categoria)
+    this.categoriasService.editCategoria(categoria).subscribe((categoria: Categoria) => {
+      // this.categorias.push(categoria);
+      this.refreshTable();
+    });
   }
 
 }

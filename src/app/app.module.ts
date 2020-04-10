@@ -25,6 +25,8 @@ import {
 import { BackendService } from './services/backend.service';
 import { CategoriasService } from './services/categorias.service';
 
+// modules imports
+import { GenericsModule } from './generics/generics.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,6 +46,7 @@ import { CategoriasService } from './services/categorias.service';
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    GenericsModule,
   ],
   providers: [
     BackendService,

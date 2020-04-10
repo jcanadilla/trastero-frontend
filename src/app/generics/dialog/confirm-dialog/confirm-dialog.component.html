@@ -1,0 +1,10 @@
+<nb-card>
+  <nb-card-header>Eliminar</nb-card-header>
+  <nb-card-body>
+    <span>¿Está seguro de que desea eliminar el elemento?</span>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="danger" (click)="cancel()">Cancelar</button>
+    <button nbButton status="success" (click)="submit('ok')">Eliminar</button>
+  </nb-card-footer>
+</nb-card>

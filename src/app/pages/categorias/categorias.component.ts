@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { CategoriasService } from '../../services/categorias.service';
 import { Categoria } from '../../models/categoria.model';
-
+import { NbDialogService } from '@nebular/theme';
+import { ConfirmDialogComponent } from '../../generics/dialog/confirm-dialog/confirm-dialog.component'
 @Component({
   selector: 'ngx-categorias',
   templateUrl: './categorias.component.html',
@@ -53,7 +54,7 @@ export class CategoriasComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private categoriasService: CategoriasService) {
+  constructor(private categoriasService: CategoriasService, private dialogService: NbDialogService) {
 
   }
 
@@ -72,20 +73,23 @@ export class CategoriasComponent implements OnInit {
     // data: Object - data object to delete
     // source: DataSource - table data source
     // confirm: Deferred - Deferred object with resolve() and reject() methods.
-    if (window.confirm('Are you sure you want to delete?')) {
-      const categoria = event.data as Categoria;
-      this.categoriasService.deleteCategoria(categoria).subscribe(
-        (categoria: Categoria) => {
-          console.log("Deleted!", categoria)
-        },
-        (error) => {
-          event.confirm.reject();
-        }
-      );
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+    this.dialogService.open(ConfirmDialogComponent)
+      .onClose.subscribe(name => {
+        const categoria = event.data as Categoria;
+        this.categoriasService.deleteCategoria(categoria).subscribe(
+          (categoria: Categoria) => {
+            console.log("Deleted!", categoria)
+            event.confirm.resolve();
+          },
+          (error) => {
+            event.confirm.reject();
+          }
+        ); 
+      },
+      (error) => {
+        event.confirm.reject();
+      }
+      );    
   }
 
   onCreateConfirm(event): void {
@@ -96,6 +100,7 @@ export class CategoriasComponent implements OnInit {
     this.categoriasService.createCategoria(categoria).subscribe(
       (categoria: Categoria) => {
         console.log("Created!", categoria)
+        event.confirm.resolve();
       },
       (error) => {
         event.confirm.reject();

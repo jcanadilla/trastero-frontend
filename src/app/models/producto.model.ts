@@ -4,7 +4,7 @@ import { Articulo } from './articulo.model';
 
 export class Producto {
 
-  id: number
+  id: number;
   constructor(
     public nombre: string,
     public imagen: string,
@@ -12,7 +12,7 @@ export class Producto {
     public link: string,
     public articulos: Articulo[],
     public categoria: Categoria,
-    public tienda: Tienda[]
+    public tienda: Tienda[],
   ) { }
 
 }

@@ -35,6 +35,7 @@ export class CategoriasComponent implements OnInit {
       id: {
         title: 'ID',
         type: 'number',
+        editable: false,
       },
       nombre: {
         title: 'Nombre',
@@ -84,12 +85,12 @@ export class CategoriasComponent implements OnInit {
           (error) => {
             event.confirm.reject();
           }
-        ); 
+        );
       },
-      (error) => {
-        event.confirm.reject();
-      }
-      );    
+        (error) => {
+          event.confirm.reject();
+        }
+      );
   }
 
   onCreateConfirm(event): void {

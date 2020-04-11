@@ -26,6 +26,10 @@ const routes: Routes = [{
       path: 'tiendas',
       loadChildren: () => import('./tiendas/tiendas.module').then(m => m.TiendasModule),
     },
+    {
+      path: 'articulos',
+      loadChildren: () => import('./articulos/articulos.module').then(m => m.ArticulosModule)
+    },
 
     // {
     //   path: 'dashboard',

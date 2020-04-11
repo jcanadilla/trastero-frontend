@@ -9,7 +9,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Categorías',
-    icon: 'shopping-cart',
+    icon: 'bookmark',
     link: '/pages/categorias',
   },
   {
@@ -19,8 +19,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Tiendas',
-    icon: 'shopping-cart',
+    icon: 'car',
     link: '/pages/tiendas',
+  },
+  {
+    title: 'Articulos',
+    icon: 'cube',
+    link: '/pages/articulos',
   },
 
   // {

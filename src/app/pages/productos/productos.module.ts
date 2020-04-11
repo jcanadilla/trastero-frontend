@@ -12,7 +12,7 @@ import { GenericsModule } from '../../generics/generics.module';
   imports: [
     CommonModule,
     ProductosRoutingModule,
-    GenericsModule
+    GenericsModule,
   ],
 })
 export class ProductosModule { }

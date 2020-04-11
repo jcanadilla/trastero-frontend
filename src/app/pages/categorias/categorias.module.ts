@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CategoriasRoutingModule } from './categorias-routing.module';
 import { CategoriasComponent } from './categorias.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { NbCardModule } from '@nebular/theme';
+import { GenericsModule } from '../../generics/generics.module';
 
 
 @NgModule({
@@ -12,8 +11,7 @@ import { NbCardModule } from '@nebular/theme';
   imports: [
     CommonModule,
     CategoriasRoutingModule,
-    Ng2SmartTableModule,
-    NbCardModule
+    GenericsModule
   ],
 })
 export class CategoriasModule { }

@@ -11,6 +11,7 @@ import {
   NbTabsetModule,
   NbTooltipModule,
   NbWindowModule,
+  NbLayoutModule,
 } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -20,8 +21,6 @@ import { ThemeModule } from '../@theme/theme.module';
 // components
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 
-
-
 const COMPONENTS = [
   ConfirmDialogComponent,
 ];
@@ -30,7 +29,7 @@ const ENTRY_COMPONENTS = [
   ConfirmDialogComponent,
 ];
 
-const MODULES = [
+const MODULES: any[] = [
   FormsModule,
   ThemeModule,
   NbDialogModule.forChild(),
@@ -43,6 +42,7 @@ const MODULES = [
   NbInputModule,
   NbSelectModule,
   NbTooltipModule,
+  NbLayoutModule,
   Ng2SmartTableModule,
 ];
 
@@ -51,7 +51,7 @@ const SERVICES = [
 
 @NgModule({
   imports: [
-    ...MODULES,
+    ...MODULES
   ],
   declarations: [
     ...COMPONENTS,
@@ -62,6 +62,9 @@ const SERVICES = [
   entryComponents: [
     ...ENTRY_COMPONENTS,
   ],
+  exports: [
+    ...MODULES,
+  ]
 })
 export class GenericsModule {
 

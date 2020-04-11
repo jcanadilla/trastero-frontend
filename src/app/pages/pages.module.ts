@@ -6,6 +6,8 @@ import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { HomeModule } from './home/home.module';
+import { CategoriasModule } from './categorias/categorias.module';
+import { GenericsModule } from '../generics/generics.module';
 
 @NgModule({
   imports: [

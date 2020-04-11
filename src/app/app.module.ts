@@ -19,6 +19,7 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
+  NbLayoutModule,
 } from '@nebular/theme';
 
 // services imports
@@ -46,7 +47,6 @@ import { GenericsModule } from './generics/generics.module';
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
-    GenericsModule,
   ],
   providers: [
     BackendService,

@@ -2,7 +2,7 @@
   <nb-card-header>Previsualización del producto</nb-card-header>
   <nb-card-body>
 
-    <img src="{{producto.imagen}}" alt="{{producto.nombre}}">
+    <img class="img-thumbnail mx-auto d-block" src="{{producto.imagen}}" alt="{{producto.nombre}}">
 
     <div>
       <form>
@@ -16,7 +16,7 @@
           <input type="text" nbInput fullWidth id="codigo" placeholder="Código de barras" value="{{producto.codigo}}">
         </div>
         <button type="reset" nbButton status="dancer" (click)="cancel()" class="cancel">Cancelar</button>
-        <button type="submit" (click)="submit()" nbButton status="success">Crear</button>
+        <button type="submit" (click)="submit()" nbButton status="success">{{crearOContinuar}}</button>
       </form>
     </div>
   </nb-card-body>

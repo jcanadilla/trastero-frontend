@@ -37,6 +37,9 @@ export class ScannerDialogComponent implements OnInit, OnDestroy {
       inputStream: {
         name: "Live",
         type: "LiveStream",
+        constraints: {
+          width: '10rem',
+        }
       },
       decoder: {
         readers: ["ean_reader"]

@@ -10,11 +10,14 @@ import { Producto } from '../../../../models/producto.model';
 })
 export class CrearProductoComponent implements OnInit {
 
-
+  crearOContinuar = 'crear';
   producto: Producto
   constructor(protected ref: NbDialogRef<ConfirmDialogComponent>) { }
 
   ngOnInit(): void {
+    if (this.producto.id) {
+      this.crearOContinuar = 'Continuar';
+    }
   }
 
   cancel() {

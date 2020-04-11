@@ -10,8 +10,13 @@
     margin-right: 1rem;
   }
 
-  canvas.drawingBuffer {
-    display: none !important;
+  video, canvas {
+    width: 100%;
+    height: auto;
+  }
+
+  video.drawingBuffer, canvas.drawingBuffer {
+    display: none;
   }
 
 }

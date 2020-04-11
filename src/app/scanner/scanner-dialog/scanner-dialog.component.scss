@@ -1,0 +1,17 @@
+@import '../../@theme/styles/themes';
+
+@include nb-install-component() {
+  
+  input {
+    width: 100%;
+  }
+
+  .mr-1 {
+    margin-right: 1rem;
+  }
+
+  canvas.drawingBuffer {
+    display: none !important;
+  }
+
+}

@@ -1,0 +1,15 @@
+<nb-card>
+  <nb-card-header>Escanear</nb-card-header>
+  <nb-card-body>
+    <div id="interactive" class="viewport">
+      <video src=""></video>
+      <canvas class="drawingBuffer"></canvas>
+    </div>
+    <input type="text" nbInput placeholder="Código de barras" value="{{codigo}}">
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton class="cancel mr-1" status="danger" (click)="cancel()">Cancelar</button>
+    <button nbButton status="warning" class="mr-1" (click)="retryScan()" disabled="{{!scanned}}">Reintentar</button>
+    <button nbButton status="success" (click)="submit()" disabled="{{!scanned}}">Aceptar</button>
+  </nb-card-footer>
+</nb-card>

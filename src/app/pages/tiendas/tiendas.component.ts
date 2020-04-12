@@ -29,11 +29,6 @@ export class TiendasComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-        editable: false
-      },
       nombre: {
         title: 'Nombre',
         type: 'string',

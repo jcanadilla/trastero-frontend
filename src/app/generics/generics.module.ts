@@ -13,6 +13,7 @@ import {
   NbWindowModule,
   NbLayoutModule,
   NbDatepickerModule,
+  NbBadgeModule,
 } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -21,13 +22,16 @@ import { ThemeModule } from '../@theme/theme.module';
 
 // components
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { CategoriaBadgeComponent } from './categoria-badge/categoria-badge.component';
 
 const COMPONENTS = [
   ConfirmDialogComponent,
+  CategoriaBadgeComponent
 ];
 
 const ENTRY_COMPONENTS = [
   ConfirmDialogComponent,
+  CategoriaBadgeComponent
 ];
 
 const MODULES: any[] = [
@@ -46,6 +50,7 @@ const MODULES: any[] = [
   NbLayoutModule,
   NbDatepickerModule,
   Ng2SmartTableModule,
+  NbBadgeModule
 ];
 
 const SERVICES = [
@@ -66,6 +71,7 @@ const SERVICES = [
   ],
   exports: [
     ...MODULES,
+    CategoriaBadgeComponent
   ]
 })
 export class GenericsModule {

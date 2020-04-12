@@ -6,6 +6,8 @@
 
       <div class="details">
         <div class="h6">{{producto.nombre}}</div>
+        <ngx-categoria-badge *ngIf="producto.categoria" [texto]="producto.categoria.nombre" [color]="producto.categoria.color" [posicion]="'top right'">
+        </ngx-categoria-badge>
         <span>{{producto.codigo}}</span>
       </div>
 

@@ -12,6 +12,7 @@ import {
   NbTooltipModule,
   NbWindowModule,
   NbLayoutModule,
+  NbDatepickerModule,
 } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
@@ -43,6 +44,7 @@ const MODULES: any[] = [
   NbSelectModule,
   NbTooltipModule,
   NbLayoutModule,
+  NbDatepickerModule,
   Ng2SmartTableModule,
 ];
 

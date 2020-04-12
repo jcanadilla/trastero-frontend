@@ -17,7 +17,7 @@
             [(ngModel)]="producto.codigo">
         </div>
         <button type="reset" nbButton status="dancer" (click)="cancel()" class="cancel">Cancelar</button>
-        <button type="submit" nbButton status="success">{{producto.id ? 'Crear' : 'Continuar'}}</button>
+        <button type="submit" nbButton status="success">{{!producto.id ? 'Crear' : 'Continuar'}}</button>
       </form>
     </div>
   </nb-card-body>

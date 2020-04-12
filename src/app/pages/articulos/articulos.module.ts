@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { ArticulosRoutingModule } from './articulos-routing.module';
 import { ArticulosComponent } from './articulos.component';
+import { CrearArticuloComponent } from './dialogs/crear-articulo/crear-articulo.component';
+import { GenericsModule } from '../../generics/generics.module';
 
 
 @NgModule({
-  declarations: [ArticulosComponent],
+  declarations: [ArticulosComponent, CrearArticuloComponent],
   imports: [
     CommonModule,
-    ArticulosRoutingModule
+    ArticulosRoutingModule,
+    GenericsModule
   ]
 })
 export class ArticulosModule { }

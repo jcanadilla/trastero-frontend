@@ -4,6 +4,9 @@ import { ScannerDialogComponent } from './scanner-dialog/scanner-dialog.componen
 import { ProductosService } from '../services/productos.service';
 import { CrearProductoComponent } from '../pages/productos/dialogs/crear-producto/crear-producto.component';
 import { Producto } from '../models/producto.model';
+import { CrearArticuloComponent } from '../pages/articulos/dialogs/crear-articulo/crear-articulo.component';
+import { ArticulosService } from '../services/articulos.service';
+import { ArticuloCrear } from '../models/articulo-crear.model';
 
 @Component({
   selector: 'ngx-scanner',
@@ -15,7 +18,11 @@ export class ScannerComponent implements OnInit {
 
   scannerStarted: Boolean = false
 
-  constructor(private dialogService: NbDialogService, private productosService: ProductosService, private toastrService: NbToastrService) { }
+  constructor(
+    private productosService: ProductosService,
+    private articulosService: ArticulosService,
+    private dialogService: NbDialogService,
+    private toastrService: NbToastrService) { }
 
   ngOnInit(): void {
 
@@ -27,6 +34,7 @@ export class ScannerComponent implements OnInit {
       codigo = await this.dialogService.open(ScannerDialogComponent).onClose.toPromise();
     } catch (e) {
       this.toastrService.danger('Ha ocurrido un error al escanear el producto', 'Error al escanear');
+      throw e;
     }
 
     console.log('CODIGO ESCANEADO!', codigo);
@@ -45,10 +53,13 @@ export class ScannerComponent implements OnInit {
 
       if (!producto.id) {
         producto = await this.crearProducto(producto);
+      } else {
+        producto = await this.editarProducto(producto);
       }
 
     } catch (e) {
       this.toastrService.danger('Ha ocurrido un error al buscar el producto', 'Error al buscar el producto');
+      throw e;
     }
     this.crearArticulo(producto);
   }
@@ -59,8 +70,30 @@ export class ScannerComponent implements OnInit {
     return created;
   }
 
-  crearArticulo(producto) {
+  async editarProducto(productoComprobado: Producto): Promise<Producto> {
+    const edited: Producto = await this.productosService.editProducto(productoComprobado).toPromise();
+    this.toastrService.success(`${edited.nombre} editado correctamente`, 'Producto editado');
+    return edited;
+  }
 
+  async crearArticulo(producto) {
+    let articuloCrear = new ArticuloCrear();
+    articuloCrear.producto = producto;
+    try {
+
+      articuloCrear = await this.dialogService.open(CrearArticuloComponent, { context: { articuloCrear } }).onClose.toPromise();
+    } catch (e) {
+      this.toastrService.danger('Ha ocurrido un error al crear el artículo', 'Error');
+      throw (e);
+    }
+
+    try {
+      const response = await this.articulosService.almacenar(articuloCrear).toPromise();
+      this.toastrService.success('El artículo se ha almacenado correctamente', 'Artículo almacenado');
+    } catch (e) {
+      console.error(e.message);
+      this.toastrService.danger('No se ha podido almacenar el articulo', 'Error');
+    }
   }
 
 }

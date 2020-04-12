@@ -53,11 +53,20 @@ export class CategoriasComponent implements OnInit {
           type: 'list',
           config: {
             selectText: 'Seleccionar...',
-            list: Colores.map(value => { 
-              return {"value":value,"title":value} 
-            } ),
+            list: Colores.map(value => {
+              return { "value": value, "title": value }
+            }),
           },
         },
+        editor: {
+          type: "list",
+          config:{
+            list: Colores.map(value => {
+              return { "value": value, "title": value }
+            }),
+          }
+
+        }
       },
 
     },

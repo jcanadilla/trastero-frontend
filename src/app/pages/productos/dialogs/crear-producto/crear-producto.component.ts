@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmDialogComponent } from '../../../../generics/dialog/confirm-dialog/confirm-dialog.component';
 import { NbDialogRef } from '@nebular/theme';
 import { Producto } from '../../../../models/producto.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'ngx-crear-producto',
@@ -10,21 +11,19 @@ import { Producto } from '../../../../models/producto.model';
 })
 export class CrearProductoComponent implements OnInit {
 
-  crearOContinuar = 'crear';
   producto: Producto
   constructor(protected ref: NbDialogRef<ConfirmDialogComponent>) { }
 
   ngOnInit(): void {
-    if (this.producto.id) {
-      this.crearOContinuar = 'Continuar';
-    }
   }
 
   cancel() {
     this.ref.close();
   }
 
-  submit() {
+  submit(f) {
+    console.log(f);
+    console.log(this.producto);
     this.ref.close(this.producto);
   }
 

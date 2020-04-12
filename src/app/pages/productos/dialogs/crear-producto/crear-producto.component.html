@@ -5,18 +5,19 @@
     <img class="img-thumbnail mx-auto d-block" src="{{producto.imagen}}" alt="{{producto.nombre}}">
 
     <div>
-      <form>
+      <form #f="ngForm" (ngSubmit)='submit(f.value)'>
         <div class="form-group">
           <label for="nombre" class="label">Nombre</label>
-          <input type="text" nbInput fullWidth id="nombre" placeholder="Nombre del producto"
-            value="{{producto.nombre}}">
+          <input type="text" nbInput fullWidth name="nombre" placeholder="Nombre del producto"
+            [(ngModel)]="producto.nombre">
         </div>
         <div class="form-group">
           <label for="codigo" class="label">Código de barras</label>
-          <input type="text" nbInput fullWidth id="codigo" placeholder="Código de barras" value="{{producto.codigo}}">
+          <input type="text" nbInput fullWidth name="codigo" placeholder="Código de barras"
+            [(ngModel)]="producto.codigo">
         </div>
         <button type="reset" nbButton status="dancer" (click)="cancel()" class="cancel">Cancelar</button>
-        <button type="submit" (click)="submit()" nbButton status="success">{{crearOContinuar}}</button>
+        <button type="submit" nbButton status="success">{{producto.id ? 'Crear' : 'Continuar'}}</button>
       </form>
     </div>
   </nb-card-body>

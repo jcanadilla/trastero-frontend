@@ -3,6 +3,8 @@ import { ConfirmDialogComponent } from '../../../../generics/dialog/confirm-dial
 import { NbDialogRef } from '@nebular/theme';
 import { Producto } from '../../../../models/producto.model';
 import { NgForm } from '@angular/forms';
+import { Categoria } from '../../../../models/categoria.model';
+import { CategoriasService } from '../../../../services/categorias.service';
 
 @Component({
   selector: 'ngx-crear-producto',
@@ -11,10 +13,17 @@ import { NgForm } from '@angular/forms';
 })
 export class CrearProductoComponent implements OnInit {
 
-  producto: Producto
-  constructor(protected ref: NbDialogRef<ConfirmDialogComponent>) { }
+  producto: Producto;
+  categorias: Categoria[];
+  categoriaSelectedIndex: number;
+  constructor(protected ref: NbDialogRef<ConfirmDialogComponent>, private categoriasService: CategoriasService) { }
 
   ngOnInit(): void {
+    this.getCategorias();
+  }
+
+  async getCategorias() {
+    this.categorias = await this.categoriasService.getCategorias().toPromise();
   }
 
   cancel() {
@@ -25,6 +34,10 @@ export class CrearProductoComponent implements OnInit {
     console.log(f);
     console.log(this.producto);
     this.ref.close(this.producto);
+  }
+
+  onCategoriaSelected(index) {
+    this.producto.categoria = this.categorias[index];
   }
 
 }

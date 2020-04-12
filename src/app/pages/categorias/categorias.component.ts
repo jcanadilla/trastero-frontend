@@ -4,6 +4,7 @@ import { CategoriasService } from '../../services/categorias.service';
 import { Categoria } from '../../models/categoria.model';
 import { NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../generics/dialog/confirm-dialog/confirm-dialog.component'
+import { Colores } from '../../models/colores';
 @Component({
   selector: 'ngx-categorias',
   templateUrl: './categorias.component.html',
@@ -48,6 +49,15 @@ export class CategoriasComponent implements OnInit {
       color: {
         title: 'Color',
         type: 'string',
+        filter: {
+          type: 'list',
+          config: {
+            selectText: 'Seleccionar...',
+            list: Colores.map(value => { 
+              return {"value":value,"title":value} 
+            } ),
+          },
+        },
       },
 
     },

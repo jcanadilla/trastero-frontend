@@ -51,7 +51,8 @@
               "node_modules/echarts/dist/echarts.min.js",
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/quagga/dist/quagga.min.js"
+              "node_modules/quagga/dist/quagga.min.js",
+              "src/assets/js/moment-with-locales/moment-with-locales.js"
             ]
           },
           "configurations": {
@@ -114,7 +115,8 @@
               "node_modules/echarts/dist/echarts.min.js",
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/quagga/dist/quagga.min.js"
+              "node_modules/quagga/dist/quagga.min.js",
+              "src/assets/js/moment-with-locales/moment-with-locales.js"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",

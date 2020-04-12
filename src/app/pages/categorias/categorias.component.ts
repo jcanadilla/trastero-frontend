@@ -5,6 +5,7 @@ import { Categoria } from '../../models/categoria.model';
 import { NbDialogService } from '@nebular/theme';
 import { ConfirmDialogComponent } from '../../generics/dialog/confirm-dialog/confirm-dialog.component'
 import { Colores } from '../../models/colores';
+import { CustomRenderComponent } from './custom-render-component/custom-render-component.component';
 @Component({
   selector: 'ngx-categorias',
   templateUrl: './categorias.component.html',
@@ -48,7 +49,8 @@ export class CategoriasComponent implements OnInit {
       },
       color: {
         title: 'Color',
-        type: 'string',
+        type: 'custom',
+        renderComponent: CustomRenderComponent,
         filter: {
           type: 'list',
           config: {

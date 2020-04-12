@@ -12,14 +12,11 @@ export class CategoriaBadgeComponent implements OnInit {
   @Input()
   color: string
   @Input()
-  posicion: string
+  posicion: string //'top left', 'top right', 'bottom left', 'bottom right', 'top start', 'top end', 'bottom start', 'bottom end'
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.texto)
-    console.log(this.color)
-    console.log(this.posicion)
   }
 
 }

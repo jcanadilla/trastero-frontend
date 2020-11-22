@@ -15,11 +15,13 @@ export class CrearProductoComponent implements OnInit {
 
   producto: Producto;
   categorias: Categoria[];
-  categoriaSelectedIndex: number;
+  categoriaSelectedIndex: number = 0;
   constructor(protected ref: NbDialogRef<ConfirmDialogComponent>, private categoriasService: CategoriasService) { }
 
   ngOnInit(): void {
-    this.getCategorias();
+    this.getCategorias().then(() => {
+      this.initCategoriasSelect();
+    })
   }
 
   async getCategorias() {
@@ -37,7 +39,21 @@ export class CrearProductoComponent implements OnInit {
   }
 
   onCategoriaSelected(index) {
-    this.producto.categoria = this.categorias[index];
+    const parsedIndex = parseInt(index, 10);
+    console.log('onCategoriaSelected index: ', parsedIndex);
+    if (parsedIndex < this.categorias.length && parsedIndex >= 0) {
+      this.producto.categoria = this.categorias[parsedIndex];
+      this.categoriaSelectedIndex = parsedIndex;
+    }
+  }
+
+  initCategoriasSelect() {
+    const categoriaProducto = this.producto.categoria;
+    console.log('CATEGORIA: ', categoriaProducto);
+    if (categoriaProducto) {
+      this.categoriaSelectedIndex = this.categorias.findIndex((c) => c.id == categoriaProducto.id);
+      console.log('CATEGORIA-SELECTED: ', this.categoriaSelectedIndex);
+    }
   }
 
 }

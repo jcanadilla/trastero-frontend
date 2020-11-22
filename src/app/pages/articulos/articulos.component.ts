@@ -1,9 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ArticulosService } from '../../services/articulos.service';
 import { Articulo } from '../../models/articulo.model';
-import { NombreProductoRendererComponent } from './renderers/nombre-producto-renderer/nombre-producto-renderer.component';
-import { FechaCaducidadRendererComponent } from './renderers/fecha-caducidad-renderer/fecha-caducidad-renderer.component';
+import { NbTreeGridDataSource, NbSortDirection, NbTreeGridDataSourceBuilder, NbSortRequest } from '@nebular/theme';
+import { ProductosService } from '../../services/productos.service';
+import { map } from 'rxjs/operators';
+import _ from 'lodash';
+import * as moment from 'moment';
+import { Producto } from '../../models/producto.model';
+
+interface ProductoArticuloEntry {
+  // Producto
+  nombre: string,
+  codigo: string,
+  cantidad?: number,
+  caduca?: Boolean,
+  tipo: string,
+  // Articulos
+  fechaCaducidad?: Date,
+}
 
 @Component({
   selector: 'ngx-articulos',
@@ -11,81 +26,97 @@ import { FechaCaducidadRendererComponent } from './renderers/fecha-caducidad-ren
   styleUrls: ['./articulos.component.scss']
 })
 export class ArticulosComponent implements OnInit {
+  customColumn = 'nombre';
+  defaultColumns = [
+    'tipo',
+    'codigo',
+    'cantidad',
+    'caduca',
+    'fechaCaducidad'
+  ];
+  allColumns = [this.customColumn, ...this.defaultColumns];
 
-  settings = {
-    mode: "inline",
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmCreate: true,
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true,
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      producto: {
-        title: 'Producto',
-        type: 'custom',
-        renderComponent: NombreProductoRendererComponent
-      },
-      fechaCaducidad: {
-        title: 'Fecha caducidad',
-        type: 'custom',
-        renderComponent: FechaCaducidadRendererComponent,
-      },
-      color: {
-        title: 'Color',
-        type: 'string',
-      },
-    },
-  };
+  dataSource: NbTreeGridDataSource<ProductoArticuloEntry>;
 
-  articulos: Articulo[];
-  source: LocalDataSource = new LocalDataSource();
+  sortColumn: string;
+  sortDirection: NbSortDirection = NbSortDirection.NONE;
 
-  constructor(private articulosService: ArticulosService) { }
+  productos: any;
+
+  constructor(
+    private productosService: ProductosService,
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<ProductoArticuloEntry>
+  ) {
+  }
 
   ngOnInit(): void {
     this.getArticulos();
   }
 
   async getArticulos() {
-    this.articulos = await this.articulosService.getArticulos().toPromise();
-    this.refreshTable();
+    moment.locale(navigator.language);
+    this.productos = await this.productosService.getProductos()
+      .pipe(map((productos) => _.map(productos, (producto) => {
+
+        let result = {
+          data: {
+            nombre: producto.nombre,
+            codigo: producto.codigo,
+            cantidad: producto.articulos.length,
+            caduca: producto.caduca,
+            fechaCaducidad: null,
+            tipo: 'producto',
+          },
+          children: []
+        };
+        const children = _.map(producto.articulos, a => ({
+          data: {
+            nombre: producto.nombre,
+            caduca: producto.caduca,
+            fechaCaducidad: moment(a.fechaCaducidad).format('ll'),
+            tipo: 'articulo',
+          }
+        }));
+        result.children.push(...children);
+        return result;
+      })
+      )).toPromise();
+    console.log('PRODUCTOS:', this.productos);
+    this.dataSource = this.dataSourceBuilder.create(this.productos);
   }
 
-  refreshTable() {
-    this.source.load(this.articulos);
+  updateSort(sortRequest: NbSortRequest): void {
+    this.sortColumn = sortRequest.column;
+    this.sortDirection = sortRequest.direction;
   }
 
-  onDeleteConfirm(event) {
-
-  }
-
-  async onCreateConfirm(event) {
-    const articulo = event.newData as Articulo;
-    try {
-      const articuloCreado = await this.articulosService.createArticulo(articulo).toPromise();
-      event.confirm.resolve();
-    } catch (e) {
-      event.confirm.reject();
+  getSortDirection(column: string): NbSortDirection {
+    if (this.sortColumn === column) {
+      return this.sortDirection;
     }
+    return NbSortDirection.NONE;
   }
 
-  onEditConfirm(event) {
-
+  getShowOn(index: number) {
+    const minWithForMultipleColumns = 400;
+    const nextColumnStep = 100;
+    return minWithForMultipleColumns + (nextColumnStep * index);
   }
+}
 
+@Component({
+  selector: 'ngx-fs-icon',
+  template: `
+    <nb-tree-grid-row-toggle [expanded]="expanded" *ngIf="isProduct()">
+    </nb-tree-grid-row-toggle>
 
-  onComponentInitFunction(render) {
-    console.log(render);
+  `,
+})
+export class FsIconComponent {
+  @Input() kind: string;
+  @Input() expanded: boolean;
+
+  isProduct(): boolean {
+    return this.kind === 'producto';
   }
 }

@@ -10,6 +10,7 @@ export class Producto {
     public imagen: string,
     public codigo: string,
     public link: string,
+    public caduca: Boolean,
     public articulos: Articulo[],
     public categoria: Categoria,
     public tienda: Tienda[],

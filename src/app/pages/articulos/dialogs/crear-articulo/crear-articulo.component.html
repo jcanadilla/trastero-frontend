@@ -7,11 +7,7 @@
         <input type="text" nbInput fullWidth disabled placeholder="Nombre del producto"
           value="{{articuloCrear.producto.nombre}}">
       </div>
-      <div class="form-group">
-        <nb-checkbox (value)="articuloCrear.caduca" name="caduca" [(ngModel)]="articuloCrear.caduca">¿Caduca?
-        </nb-checkbox>
-      </div>
-      <div class="form-group" *ngIf="articuloCrear.caduca">
+      <div class="form-group" *ngIf="articuloCrear.producto.caduca">
         <label for="fechaCaducidad" class="label">Fecha de caducidad</label>
         <input nbInput [nbDatepicker]="fechaCaducidad" [(ngModel)]="articuloCrear.fechaCaducidad" name="fechaCaducidad">
         <nb-datepicker #fechaCaducidad></nb-datepicker>
@@ -20,7 +16,8 @@
         <nb-checkbox (value)="articuloCrear.esPack" name="esPack" [(ngModel)]="articuloCrear.esPack">¿Es un pack?
         </nb-checkbox>
       </div>
-      <div *ngIf="articuloCrear.esPack">
+      <div *ngIf="articuloCrear.esPack; then esPackBlock else noEsPackBlock"></div>
+      <ng-template #esPackBlock>
         <div class="form-group">
           <label for="numPacks" class="label">Número de packs</label>
           <input type="number" nbInput placeholder="Número de packs" name="numPacks"
@@ -46,7 +43,24 @@
           <input type="number" nbInput step=".01" placeholder="Precio de la unidad" name="precioUnidad"
             [(ngModel)]="articuloCrear.precioUnidad">
         </div>
-      </div>
+      </ng-template>
+
+      <ng-template #noEsPackBlock>
+        <div class="form-group">
+          <label for="numPacks" class="label">Unidades</label>
+          <input type="number" nbInput placeholder="Unidades" name="numPacks" [(ngModel)]="articuloCrear.numPacks">
+        </div>
+        <div class="form-group">
+          <label for="precioTotal" class="label">Precio total</label>
+          <input type="number" nbInput placeholder="Precio total" name="precioTotal"
+            [(ngModel)]="articuloCrear.precioTotal" (keyup)="calcularPrecios()">
+        </div>
+        <div class="form-group">
+          <label for="precioPack" class="label">Precio por unidad</label>
+          <input type="number" nbInput placeholder="Precio por unidad" name="precioPack"
+            [(ngModel)]="articuloCrear.precioPack">
+        </div>
+      </ng-template>
       <button type="reset" nbButton status="dancer" (click)="cancel()" class="cancel">Cancelar</button>
       <button type="submit" nbButton status="success">Almacenar</button>
     </form>

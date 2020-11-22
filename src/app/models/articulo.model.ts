@@ -4,7 +4,6 @@ export class Articulo {
 
   id: number;
   constructor(
-    public caduca: Boolean,
     public fechaCaducidad: Date,
     public fechaCompra: Date,
     public gastado: Boolean,

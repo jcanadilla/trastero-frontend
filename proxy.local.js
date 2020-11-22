@@ -9,5 +9,11 @@ module.exports = {
     secure: false,
     changeOrigin: true,
     logLevel: "debug"
+  },
+  '/static': {
+    target: 'http://192.168.1.200:3000',
+    secure: false,
+    changeOrigin: true,
+    logLevel: "debug"
   }
 };

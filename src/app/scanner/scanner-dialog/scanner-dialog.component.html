@@ -5,7 +5,7 @@
       <video src=""></video>
       <canvas class="drawingBuffer"></canvas>
     </div>
-    <input type="text" nbInput placeholder="Código de barras" value="{{codigo}}">
+    <input type="text" nbInput placeholder="Código de barras" value="{{codigo}}" (keyup)="manualInput($event)">
   </nb-card-body>
   <nb-card-footer>
     <button nbButton class="cancel mr-1" status="danger" (click)="cancel()">Cancelar</button>

@@ -1,9 +1,7 @@
 <nb-card>
   <nb-card-header>Previsualización del producto</nb-card-header>
   <nb-card-body>
-
-    <img class="img-thumbnail mx-auto d-block" src="{{producto.imagen}}" alt="{{producto.nombre}}">
-
+    <img class="img-thumbnail mx-auto d-block" src="{{producto?.imagen ? producto.imagen : 'assets/images/no-image_192.png'}}" alt="{{producto.nombre}}">
     <div>
       <form #f="ngForm" (ngSubmit)='submit(f.value)'>
         <div class="form-group">
@@ -17,10 +15,15 @@
             [(ngModel)]="producto.codigo">
         </div>
         <div class="form-group">
+          <nb-checkbox (value)="producto.caduca" name="caduca" [(ngModel)]="producto.caduca">
+            ¿Caduca?
+          </nb-checkbox>
+        </div>
+        <div class="form-group">
           <label for="" class="label"></label>
-          <nb-select fullWidth placeholder="Categoría" [(selected)]="categoriaSelectedIndex"
+          <nb-select fullWidth placeholder="Categoría" name="categoria" selected="{{categoriaSelectedIndex}}"
             (selectedChange)="onCategoriaSelected($event)">
-            <nb-option *ngFor="let categoria of categorias; index as i" value="{{i}}">{{categoria.nombre}}
+            <nb-option *ngFor="let categoria of categorias; let i = index" value="{{i}}">{{categoria.nombre}}
             </nb-option>
           </nb-select>
         </div>

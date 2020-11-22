@@ -89,4 +89,15 @@ export class ScannerDialogComponent implements OnInit, OnDestroy {
   submit() {
     this.ref.close(this.codigo);
   }
+
+  manualInput(event) {
+    const value = event.target.value;
+    console.log(value);
+    this.codigo = value;
+    if (value !== '' && value !== undefined && value !== null) {
+      this.scanned = true;
+    } else {
+      this.scanned = false;
+    }
+  }
 }

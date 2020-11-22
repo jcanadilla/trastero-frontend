@@ -62,7 +62,7 @@ export class CategoriasComponent implements OnInit {
         },
         editor: {
           type: "list",
-          config:{
+          config: {
             list: Colores.map(value => {
               return { "value": value, "title": value }
             }),
@@ -119,6 +119,7 @@ export class CategoriasComponent implements OnInit {
     // source: DataSource - table data source
     // confirm: Deferred - Deferred object with resolve(newData: Object) and reject() methods.
     const categoria = event.newData as Categoria;
+    delete categoria.id;
     this.categoriasService.createCategoria(categoria).subscribe(
       (categoria: Categoria) => {
         console.log("Created!", categoria)

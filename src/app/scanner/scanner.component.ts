@@ -51,48 +51,60 @@ export class ScannerComponent implements OnInit {
 
       producto = await this.dialogService.open(CrearProductoComponent, { context: { producto: productoEncontrado } }).onClose.toPromise();
 
-      if (!producto.id) {
-        producto = await this.crearProducto(producto);
+      if (producto) {
+        if (!producto.id) {
+          producto = await this.crearProducto(producto);
+        } else {
+          producto = await this.editarProducto(producto);
+        }
+        this.crearArticulo(producto);
       } else {
-        producto = await this.editarProducto(producto);
+        this.toastrService.warning('Operación cancelada', 'Crear producto');
       }
 
     } catch (e) {
       this.toastrService.danger('Ha ocurrido un error al buscar el producto', 'Error al buscar el producto');
       throw e;
     }
-    this.crearArticulo(producto);
   }
 
   async crearProducto(productoComprobado: Producto): Promise<Producto> {
     const created: Producto = await this.productosService.createProducto(productoComprobado).toPromise();
-    this.toastrService.success(`${created.nombre} creado correctamente`, 'Producto creado');
-    return created;
+    if (created) {
+      this.toastrService.success(`${created.nombre} creado correctamente`, 'Producto creado');
+      return created;
+    }
+    return null;
   }
 
   async editarProducto(productoComprobado: Producto): Promise<Producto> {
     const edited: Producto = await this.productosService.editProducto(productoComprobado).toPromise();
-    this.toastrService.success(`${edited.nombre} editado correctamente`, 'Producto editado');
-    return edited;
+    if (edited) {
+      this.toastrService.success(`${edited.nombre} editado correctamente`, 'Producto editado');
+      return edited;
+    }
+    return null;
   }
 
   async crearArticulo(producto) {
     let articuloCrear = new ArticuloCrear();
     articuloCrear.producto = producto;
     try {
-
       articuloCrear = await this.dialogService.open(CrearArticuloComponent, { context: { articuloCrear } }).onClose.toPromise();
     } catch (e) {
       this.toastrService.danger('Ha ocurrido un error al crear el artículo', 'Error');
       throw (e);
     }
-
-    try {
-      const response = await this.articulosService.almacenar(articuloCrear).toPromise();
-      this.toastrService.success('El artículo se ha almacenado correctamente', 'Artículo almacenado');
-    } catch (e) {
-      console.error(e.message);
-      this.toastrService.danger('No se ha podido almacenar el articulo', 'Error');
+    if (articuloCrear) {
+      try {
+        const response = await this.articulosService.almacenar(articuloCrear).toPromise();
+        this.toastrService.success('El artículo se ha almacenado correctamente', 'Artículo almacenado');
+      } catch (e) {
+        console.error(e.message);
+        this.toastrService.danger('No se ha podido almacenar el articulo', 'Error');
+      }
+    } else {
+      this.toastrService.warning('Operación cancelada', 'Almacenamiento de artículo');
     }
   }
 
